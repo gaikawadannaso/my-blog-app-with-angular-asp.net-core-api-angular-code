@@ -1,0 +1,70 @@
+<div class="container mb-5 custom-card">
+    <div class="card shadow-sm p-4">
+      <h4 class="mb-4">Leave a Comment</h4>
+      <form [formGroup]="CommentForm" (ngSubmit)="onFormSubmit()">
+        <div class="row">
+            
+            <div class="col-sm-12 col-md-6">
+                <div class="mb-3">
+                  <label for="fullName" class="form-label">Full Name</label>
+                  <input type="text" id="fullName" class="form-control" placeholder="Enter your name" formControlName="fullName">
+                  <div class="text-danger" *ngIf="CommentForm.controls['fullName'].touched && CommentForm.controls['fullName'].invalid">
+                    Name is required
+                  </div>
+                </div>
+              </div>
+              
+
+            <div class="col-sm-12 col-md-6">
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" id="email" class="form-control" placeholder="Enter your email" formControlName="email">
+                  <div class="text-danger" *ngIf="CommentForm.controls['email'].touched && CommentForm.controls['email'].invalid">
+                    <div *ngIf="CommentForm.controls['email'].errors?.['required']">Email is required</div>
+                    <div *ngIf="CommentForm.controls['email'].errors?.['email']">Enter a valid email</div>
+                  </div>
+                </div>
+              </div>
+              
+            <div class="col-sm-12 col-md-6">
+                <div class="mb-3">
+                  <label class="form-label">Rating</label>
+                  <div class="rating">
+                    <input type="radio" name="rating" id="star1" value="1" (change)="setRating(5)">
+                    <label for="star1">&#9733;</label>
+                  
+                    <input type="radio" name="rating" id="star2" value="2" (change)="setRating(4)">
+                    <label for="star2">&#9733;</label>
+                  
+                    <input type="radio" name="rating" id="star3" value="3" (change)="setRating(3)">
+                    <label for="star3">&#9733;</label>
+                  
+                    <input type="radio" name="rating" id="star4" value="4" (change)="setRating(2)">
+                    <label for="star4">&#9733;</label>
+                  
+                    <input type="radio" name="rating" id="star5" value="5" (change)="setRating(1)">
+                    <label for="star5">&#9733;</label>
+                  </div>
+                  <div class="text-danger" *ngIf="CommentForm.controls['rating'].touched && CommentForm.controls['rating'].invalid">
+                    Rating is required
+                  </div>
+
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-6" *ngIf="selectedRating">
+                <div class="feedback-box mt-4">
+                  <span class="emoji">{{ reviewFeedback[selectedRating].emoji }}</span>
+                  <span class="feedback-text">{{ reviewFeedback[selectedRating].text }}</span>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="comment" class="form-label">Comment</label>
+                <textarea id="comment" rows="4" class="form-control" placeholder="Write your comment..." formControlName="comment"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit Review</button>
+        </div>
+        
+      </form>
+    </div>
+  </div>
+  

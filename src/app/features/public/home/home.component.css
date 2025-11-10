@@ -1,0 +1,15 @@
+.blog-img {
+    max-height: 190px;     /* limit max height */
+    width: 100%;           /* take full width of card */
+    object-fit: cover;     /* crop proportionally without stretching */
+  }
+  .blog-desc {
+    display: -webkit-box;
+    -webkit-line-clamp: 8;   /* show only 10 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;      /* allow wrapping */
+  }
+
+  

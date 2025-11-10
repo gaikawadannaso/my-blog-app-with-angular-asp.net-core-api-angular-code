@@ -1,0 +1,14 @@
+.card-box {
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+  }
+  .card-box:hover {
+    transform: scale(1.03);
+  }
+  .icon {
+    font-size: 30px;
+    opacity: 0.7;
+  }
+  
+  

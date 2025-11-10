@@ -1,0 +1,45 @@
+<div class="container">
+    <h1 class="mt-3">Blog Post List</h1>
+    <div class="d-flex justify-content-end mt-3">
+        <a [routerLink]="['/admin/blogposts/add']" class="btn btn-primary">Add BlogPost</a>
+    </div>
+
+    <ng-container *ngIf="blogs$ | async as blogs">
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+          
+                <td>Title</td>
+                <td>Url Handle</td>
+                <td>Short Description</td>
+                <td>Categories</td>
+                <td colspan="2" class="text-center">Action</td>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let blog of blogs">
+              
+                <td>{{blog.title}}</td>
+                <td>{{blog.urlHandle}}</td>
+                <td>{{blog.shortDescription}}</td>
+                <td>
+                    <span *ngFor="let category of blog.categories">
+                        <span class="badge bg-secondary me-1">{{category.name}}</span>
+                    </span>
+                    
+                </td>
+           
+                <td class="text-center align-middle">
+                    <a [routerLink]="['/admin/blogposts',blog.id]" class="btn btn-success">Edit</a>
+                </td>
+                <td class="text-center align-middle">
+                    <button type="button" (click)="onDelete(blog.id)" class="btn btn-danger">Delete</button>
+                </td>
+       
+            </tr>
+        </tbody>
+    </table>
+    </ng-container>
+    
+</div>

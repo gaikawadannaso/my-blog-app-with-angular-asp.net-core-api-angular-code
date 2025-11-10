@@ -1,0 +1,108 @@
+<div class="container">
+    <h1 class="mt-3">
+        Add BlogPost
+    </h1>
+    <form [formGroup]="form" (ngSubmit)="onFormSubmit()">
+        <div class="mt-2 mb-5">
+          <div class="mt-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" id="title" class="form-control" formControlName="title">
+            <div *ngIf="form.controls['title'].touched && form.controls['title'].invalid" class="text-danger">
+              Title is required
+            </div>
+          </div>
+      
+          <div class="mt-3">
+            <label for="urlHandle" class="form-label">Url Handle</label>
+            <input type="text" id="urlHandle" class="form-control" formControlName="urlHandle">
+            <div *ngIf="form.controls['urlHandle'].touched && form.controls['urlHandle'].invalid" class="text-danger">
+              Url Handle is required
+            </div>
+          </div>
+      
+          <div class="mt-3">
+            <label for="shortDescription" class="form-label">Short Description</label>
+            <input type="text" id="shortDescription" class="form-control" formControlName="shortDescription">
+            <div *ngIf="form.controls['shortDescription'].touched && form.controls['shortDescription'].invalid" class="text-danger">
+              Short description is required (max 250 chars)
+            </div>
+          </div>
+      
+          <div class="mt-3">
+            <label for="content" class="form-label">Content</label>
+            <div class="d-flex flex-row">
+              <div class="col-6 p-2">
+                <textarea id="content" class="form-control" formControlName="content"
+                  style="height: 350px; max-height: 350px;"></textarea>
+              </div>
+              <div class="col-6 p-2" style="max-height: 350px; overflow-y: scroll;">
+                <markdown [data]="form.value.content"></markdown>
+              </div>
+            </div>
+            <div *ngIf="form.controls['content'].touched && form.controls['content'].invalid" class="text-danger">
+              Content is required
+            </div>
+          </div>
+      
+          <div class="mt-3">
+            <div class="d-flex flex-row">
+              <div class="col-6 p-2">
+                <label for="featuredImageUrl" class="form-label">
+                  Featured Image Url :
+                  <button type="button" class="btn btn-light" (click)="openImageSelector()">Select Image</button>
+                </label>
+                <input type="text" id="featuredImageUrl" class="form-control" formControlName="featuredImageUrl">
+              </div>
+      
+              <ng-container *ngIf="form.value.featuredImageUrl">
+                <div class="col-6 p-2 text-center">
+                  <img [src]="form.value.featuredImageUrl" style="height: 300px; border: 1px solid grey;" class="p-4">
+                </div>
+              </ng-container>
+            </div>
+          </div>
+      
+          <div class="mt-3">
+            <label for="publishedDate" class="form-label">Published Date</label>
+            <input type="date" id="publishedDate" class="form-control" formControlName="publishedDate">
+            <div *ngIf="form.controls['publishedDate'].touched && form.controls['publishedDate'].invalid" class="text-danger">
+              Published date is required
+            </div>
+          </div>
+      
+          <div class="mt-3">
+            <label for="author" class="form-label">Author</label>
+            <input type="text" id="author" class="form-control" formControlName="author">
+            <div *ngIf="form.controls['author'].touched && form.controls['author'].invalid" class="text-danger">
+              Author is required
+            </div>
+          </div>
+      
+          <div class="form-check mt-3">
+            <input type="checkbox" class="form-check-input me-3" id="isVisible" formControlName="isVisible">
+            <label for="isVisible" class="form-check-label">Is Visible ?</label>
+          </div>
+      
+          <div class="mt-3">
+            <label for="categories" class="form-label">Categories</label>
+            <ng-container *ngIf="categories$ | async as categories">
+              <select id="categories" class="form-control" formControlName="categories" multiple>
+                <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+              </select>
+            </ng-container>
+          </div>
+      
+          <div class="mt-3">
+            <a type="button" class="btn btn-primary me-1" [routerLink]="['/admin/blogposts']">Back</a>
+            <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Save</button>
+          </div>
+        </div>
+      </form>
+      
+
+</div>
+
+<div class="images-container-modal" [ngClass]="{'d-block': isImageSelectorVisible, 'd-none' : !isImageSelectorVisible}">
+    <button type="button" class="btn btn-light" style="position: fixed; top: 10px;right: 10px"(click)="closeImageSelector()">X</button>
+    <app-image-selector></app-image-selector>
+  </div>
